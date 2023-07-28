@@ -15,11 +15,20 @@ datosController.addDatos=async(req,res)=>{
       color:color
       });
     await newDato.save();
-    // const token=jwt.sign({_id:
-    //   newDato._id},'secretkey');
-    //   res.status(200).json({token});
-
   
   }
+
+  datosController.getImp=async(req,res)=>{
+
+    const data = await datos.find().select('color -_id');
+    res.send(data);
+
+}  
+datosController.getDates=async(req,res)=>{
+
+  const data = await datos.find().select('color createdAt -_id');
+  res.send(data);
+
+}  
 
 module.exports=datosController;
