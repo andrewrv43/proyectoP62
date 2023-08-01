@@ -41,6 +41,41 @@ usersController.getUserByEmailAndPassword = async (req, res) => {
       res.status(500).json({ message: 'Error' });
   }
 }
+usersController.editUser=async(req,res)=>{
+  try {
+const{correo,username, contraseña,cargo}=req.body;
+const usuario = await User.findOne({correo:correo});
+if (!usuario) {
+  console.log(correo);
+  return res.status(404).json({ message: 'Usuario no encontrado' });
+  
+}
+usuario.contraseña=contraseña;
+usuario.username=username;
+usuario.cargo=cargo;
+
+await usuario.save();
+
+}
+catch (error) {
+  console.error(error);
+  res.status(500).send('Error al editar el usuario');
+}
+};
+usersController.eliminarUser=async(req,res)=>{
+  try {
+    const{correo}=req.body;
+    const del=await User.findOneAndDelete({correo:correo});
+    if (!del) {
+      return res.status(404).json({ message: 'Usuario no encontrado' });
+    }
+
+    res.status(200).json({ message: 'Usuario eliminado correctamente' });
+  } catch (error) {
+    console.error(error);
+    res.status(500).send('Error al eliminar el usuario');
+  }
+}
 
 
 

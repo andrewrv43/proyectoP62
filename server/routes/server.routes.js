@@ -6,6 +6,8 @@ const dato=require('../controllers/datos.controller');
 router.get('/obt',user.getUsers);
 router.post('/registro', user.addUser);
 router.post('/log',user.getUserByEmailAndPassword);
+router.put('/actualizar',user.editUser);
+router.delete('/del',user.eliminarUser);
  //datos
  router.get('/imp',dato.getDatos);
 router.post('/quemado', dato.addDatos);    
